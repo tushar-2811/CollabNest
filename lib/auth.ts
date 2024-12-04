@@ -67,8 +67,8 @@ export const authOptions: NextAuthOptions = {
         if(token){
             session.user.id = token.id;
             session.user.name = token.name;
-            session.user?.email = token.email;
-            session.user?.image = token.picture;
+            session.user.email = token.email;
+            session.user.image = token.picture;
             session.user.username = token.username;
         }
 
@@ -79,13 +79,13 @@ export const authOptions: NextAuthOptions = {
         });
 
         if(user){
-            session.user?.image = user.image;
+            session.user.image = user.image;
             session.user.name = user.name.toLowerCase();
         }
 
         return session;
     },
-    async jwt(token , user){
+    async jwt({token , user}){
         const dbUser = await db.user.findFirst({
             where : {
                 email : token.email
