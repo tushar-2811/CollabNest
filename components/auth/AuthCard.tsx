@@ -3,6 +3,7 @@ import { Card, CardDescription, CardHeader, CardTitle } from '../ui/card'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
+import SignUpCardContent from './SignUpCardContent'
 
 interface Props {
     isSignInCard ?: boolean
@@ -31,6 +32,11 @@ const AuthCard = ({isSignInCard} : Props) => {
 
             </CardDescription>
         </CardHeader>
+        
+        {/* card content here */}
+
+        {isSignInCard ? <> </> : <SignUpCardContent/>} 
+
       </Card>
 
       <p className='text-sm'>
