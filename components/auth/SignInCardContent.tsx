@@ -79,9 +79,8 @@ const SignInCardContent = () => {
                         <Button className='w-full text-white font-bold' type="submit"> {t("SIGN_IN.SUBMIT_BTN")} </Button>
 
                         <p className='text-xs text-center text-muted-foreground'>
-                            {t("SIGN_UP.TERMS.FIRST")}{" "}
                             <Link className='font-bold' href={"/"}>
-                             {t("SIGN_UP.TERMS.SECOND")}
+                             {t("SIGN_IN.FORGOT_PASSWORD")}
                             </Link>
                         </p>
                     </div>
