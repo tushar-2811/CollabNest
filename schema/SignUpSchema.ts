@@ -6,7 +6,7 @@ export const signUpSchema = z.object({
      username : z.string()
                  .min(4 , "Username must have 4 characters")
                  .max(14 , "Username can't have more than 14 characters"),
-    password : z.string().min(10 , "Password must be atleast 10 characters")
+    password : z.string().min(6 , "Password must be atleast 6 characters")
 });
 
 export type SignUpSchema = z.infer<typeof signUpSchema>;

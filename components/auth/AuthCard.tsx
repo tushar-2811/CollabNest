@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import SignUpCardContent from './SignUpCardContent'
+import SignInCardContent from './SignInCardContent'
 
 interface Props {
     isSignInCard ?: boolean
@@ -35,7 +36,7 @@ const AuthCard = ({isSignInCard} : Props) => {
         
         {/* card content here */}
 
-        {isSignInCard ? <> </> : <SignUpCardContent/>} 
+        {isSignInCard ? <SignInCardContent /> : <SignUpCardContent/>} 
 
       </Card>
 
