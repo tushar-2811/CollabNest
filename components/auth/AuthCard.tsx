@@ -1,19 +1,44 @@
 import React from 'react'
-import { Card, CardHeader } from '../ui/card'
+import { Card, CardDescription, CardHeader, CardTitle } from '../ui/card'
 import Image from 'next/image'
+import { useTranslations } from 'next-intl'
+import Link from 'next/link'
 
 interface Props {
     isSignInCard ?: boolean
 }
 
 const AuthCard = ({isSignInCard} : Props) => {
+    const t = useTranslations("AUTH");
   return (
     <>
-      <Card>
+      <Card className='w-full sm:w-auto sm:min-w-[28rem]'>
         <CardHeader>
-            <Image alt='image' height={50} width={50} src={"https://github.com/shadcn.png"} />
+            <Image 
+            className='rounded-full object-cover self-center'
+            alt='image' 
+            height={50}  
+            width={50} 
+            src={"https://github.com/shadcn.png"} 
+            />
+
+            <CardTitle className='pt-2'>
+                {isSignInCard ? t("SIGN_IN.TITLE") : t("SIGN_UP.TITLE")}
+            </CardTitle>
+
+            <CardDescription>
+            {isSignInCard ? t("SIGN_IN.DESC") : t("SIGN_UP.DESC")}
+
+            </CardDescription>
         </CardHeader>
       </Card>
+
+      <p className='text-sm'>
+        {isSignInCard ? t("SIGN_IN.DONT_HAVE_ACCOUNT.FIRST") : t("SIGN_UP.DONT_HAVE_ACCOUNT.FIRST")}{" "}
+        <Link className='text-primary' href={isSignInCard ? "/sign-up" : "/sign-in"}>
+        {isSignInCard ? t("SIGN_IN.DONT_HAVE_ACCOUNT.SECOND") : t("SIGN_UP.DONT_HAVE_ACCOUNT.SECOND")}
+        </Link>
+      </p>
     </>
   )
 }
