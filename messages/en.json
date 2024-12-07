@@ -34,9 +34,27 @@
             "SECOND" : "Terms of Service"
            },
            "PROVIDERS" : {
-                 "GOOGLE" : "Sign in with Google",
-                 "GITHUB" : "Sign in with Github"
+                 "GOOGLE" : "Sign up with Google",
+                 "GITHUB" : "Sign up with Github"
            }
+        }
+    },
+    "MESSAGES" : {
+        "SUCCESS" : {
+            "SIGN_UP" : "Account was created.",
+            "SIGN_IN" : "You have been logged In"
+        },
+        "ERRORS" : {
+            "DEFAULT" : "Oh No... something went wrong,Please try again.",
+            "TAKEN_USERNAME":"This username is already taken" ,
+            "TAKEN_EMAIL" : "This email is already in use..",
+            "DB_ERRORS" : "We are currently having some problem , Please try again",
+            "WRONG_DATA" : "The data you provided is incorrect, Please provide correct one",
+            "NO_USER" : "User was not found, Please enter valid email",
+            "WRONG_PASSWORD" : "Entered password is incorrect , Please enter correct one."
+        },
+        "PENDING" : {
+            "LOADING" : "Please wait"
         }
     }
 }

@@ -1,5 +1,5 @@
 "use client";
-import React from 'react';
+import React, { useState } from 'react';
 import { CardContent } from '@/components/ui/card';
 import { useForm } from 'react-hook-form';
 import { signUpSchema, SignUpSchema } from '@/schema/SignUpSchema';
@@ -18,11 +18,16 @@ import ProviderSignInButtons from './ProviderSignInButtons';
 import { useTranslations } from 'next-intl';
 import { Button } from '../ui/button';
 import Link from 'next/link';
+import { useToast } from '@/hooks/use-toast';
+import { useRouter } from 'next/navigation';
+import { signIn } from 'next-auth/react';
+import LoadingState from '../ui/loadingState';
 
 
 const SignUpCardContent = () => {
 
     const t = useTranslations("AUTH");
+    const m = useTranslations("MESSAGES");
 
     // Define a form
     const form = useForm<SignUpSchema>({
@@ -34,9 +39,57 @@ const SignUpCardContent = () => {
         }
     });
 
+    const [isLoading , setIsLoading] = useState(false);
+    const {toast} = useToast();
+    const router = useRouter();
+
     // Define a submit handler
-    const onSubmit = (values: SignUpSchema) => {
-         console.log("hi",values);
+    const onSubmit = async (values: SignUpSchema) => {
+        setIsLoading(true);
+        try {
+            const res = await fetch('/api/auth/register' , {
+                method : 'POST',
+                body : JSON.stringify(values),
+                headers : {
+                    "Content-Type" : "application/json"
+                }
+            })
+
+            if(!res.ok){
+                throw new Error("Something went wrong");
+            }
+
+            const signUpInfo = await res.json();
+
+            if(res.status === 200){
+                toast({
+                    title : m("SUCCESS.SIGN_UP")
+                });
+
+                await signIn("credentials" , {
+                    email : values.email,
+                    password : values.password,
+                    redirect : false
+                });
+                router.push("/");
+            }else {
+                throw new Error(signUpInfo);
+            }
+        } catch (error) {
+            let errorMessage = m("ERRORS.DEFAULT");
+           
+            if(typeof error === 'string'){
+                errorMessage = error;
+            }else if (error instanceof Error){
+                errorMessage = m(error.message)
+            }
+
+            toast({
+                title : errorMessage,
+                variant : "destructive"
+            })
+        }
+        setIsLoading(false);
     }
 
     return (
@@ -45,7 +98,7 @@ const SignUpCardContent = () => {
                 <form className='space-y-7' onSubmit={form.handleSubmit(onSubmit)} >
 
                     {/* Provider sign in buttons */}
-                    <ProviderSignInButtons />
+                    <ProviderSignInButtons disabled={isLoading} />
 
                     {/* Input Fields  */}
                     <div className='space-y-1.5'>
@@ -95,7 +148,12 @@ const SignUpCardContent = () => {
                     </div>
 
                     <div className='space-y-2'>
-                        <Button className='w-full  font-bold' type="submit"> {t("SIGN_UP.SUBMIT_BTN")} </Button>
+                        <Button className='w-full  font-bold' type="submit" disabled={isLoading}> 
+                            {isLoading ? <LoadingState loadingText={m("PENDING.LOADING")}/> : (
+                                  t("SIGN_UP.SUBMIT_BTN")
+                            )}
+                            
+                         </Button>
 
                         <p className='text-xs text-center text-muted-foreground'>
                             {t("SIGN_UP.TERMS.FIRST")}{" "}
