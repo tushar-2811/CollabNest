@@ -95,7 +95,7 @@ const SignUpCardContent = () => {
                     </div>
 
                     <div className='space-y-2'>
-                        <Button className='w-full text-white font-bold' type="submit"> {t("SIGN_UP.SUBMIT_BTN")} </Button>
+                        <Button className='w-full  font-bold' type="submit"> {t("SIGN_UP.SUBMIT_BTN")} </Button>
 
                         <p className='text-xs text-center text-muted-foreground'>
                             {t("SIGN_UP.TERMS.FIRST")}{" "}

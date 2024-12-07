@@ -76,7 +76,7 @@ const SignInCardContent = () => {
                     </div>
 
                     <div className='space-y-2'>
-                        <Button className='w-full text-white font-bold' type="submit"> {t("SIGN_IN.SUBMIT_BTN")} </Button>
+                        <Button className='w-full font-bold' type="submit"> {t("SIGN_IN.SUBMIT_BTN")} </Button>
 
                         <p className='text-xs text-center text-muted-foreground'>
                             <Link className='font-bold' href={"/"}>

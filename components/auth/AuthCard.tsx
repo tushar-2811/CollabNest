@@ -24,7 +24,7 @@ const AuthCard = ({isSignInCard} : Props) => {
             src={"https://github.com/shadcn.png"} 
             />
 
-            <CardTitle className='pt-2'>
+            <CardTitle className='pt-2 '>
                 {isSignInCard ? t("SIGN_IN.TITLE") : t("SIGN_UP.TITLE")}
             </CardTitle>
 
