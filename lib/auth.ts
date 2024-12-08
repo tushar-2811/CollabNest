@@ -5,7 +5,8 @@ import { Adapter } from "next-auth/adapters";
 import GoogleProvider from "next-auth/providers/google";
 import GithubProvider from "next-auth/providers/github";
 import  CredentialsProvider  from "next-auth/providers/credentials";
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcrypt';
+import {generateFromEmail} from "unique-username-generator"
 
 
 export const authOptions: NextAuthOptions = {
@@ -21,6 +22,16 @@ export const authOptions: NextAuthOptions = {
     GoogleProvider({
         clientId : process.env.GOOGLE_CLIENT_ID!,
         clientSecret : process.env.GOOGLE_CLIENT_SECRET!,
+        async profile(profile){
+            const username = generateFromEmail(profile.email,5);
+            return {
+                id : profile.sub,
+                username,
+                firstName : profile.given_name ? profile.given_name : profile.name,
+                email : profile.email,
+                image : profile.picture
+            } 
+        }
     }),
     GithubProvider({
         clientId : process.env.GITHUB_CLIENT_ID!,
