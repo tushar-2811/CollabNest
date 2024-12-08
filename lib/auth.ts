@@ -84,16 +84,16 @@ export const authOptions: NextAuthOptions = {
             session.user.username = token.username;
         }
 
-        // const user = await db.user.findUnique({
-        //     where : {
-        //         id : token.id
-        //     }
-        // });
+        const user = await db.user.findUnique({
+            where : {
+                id : token.id
+            }
+        });
 
-        // if(user){
-        //     session.user.image = user.image;
-        //     session.user.name = user.username.toLowerCase();
-        // }
+        if(user){
+            session.user.image = user.image;
+            session.user.completedOnboarding = user.completedOnboarding;
+        }
         console.log("session" , session);
         return session;
     },
