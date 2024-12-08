@@ -98,7 +98,7 @@ const SignUpCardContent = () => {
                 <form className='space-y-7' onSubmit={form.handleSubmit(onSubmit)} >
 
                     {/* Provider sign in buttons */}
-                    <ProviderSignInButtons disabled={isLoading} />
+                    <ProviderSignInButtons disabled={isLoading} onLoading={setIsLoading} />
 
                     {/* Input Fields  */}
                     <div className='space-y-1.5'>
