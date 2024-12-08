@@ -49,6 +49,7 @@ model User {
   hashedPassword String?
   emailVerified DateTime? @map("email_verified")
   image         String?
+  completedOnboarding Boolean @default(false)
   accounts      Account[]
   sessions      Session[]
  
