@@ -1,6 +1,10 @@
+import { checkIfUserCompletedOnboarding } from '@/lib/checkIfUserCompletedOnboarding'
 import React from 'react'
 
-const page = () => {
+const page = async() => {
+    const session = await checkIfUserCompletedOnboarding("/onboarding");
+    console.log(session)
+
   return (
     <div>
       welcome , onboard
