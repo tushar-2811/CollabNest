@@ -27,7 +27,7 @@ export default async function RootLayout({
   if(!isValidLocale) notFound();
 
   //@ts-ignore
-  const messages = await getMessages({locale});
+  const messages = await getMessages(locale);
 
   return (
     <html lang={locale}>

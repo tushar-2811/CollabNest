@@ -7,7 +7,7 @@ interface Props {
 }
 
 
-const LoadingState = ({loadingText , hideLoaderIcon} : Props) => {
+const LoadingState = ({loadingText , hideLoaderIcon=false , ...props} : Props) => {
   return (
    <>
       {!hideLoaderIcon && <Loader2 className='mr-2 h-4 w-4 animate-spin'/> }

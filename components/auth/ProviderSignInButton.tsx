@@ -11,27 +11,30 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement>{
      onLoading : React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const ProviderSignInButton = ({children, providerName , onLoading, ...props}:Props) => {
-  const [showLoggedInfo , setShowLoggedInfo] = useState(false);
+const ProviderSignInButton = ({children, providerName , onLoading , ...props}:Props) => {
+  const [showLoggedInfo, setShowLoggedInfo] = useState(false);
   const locale = useLocale();
-
   useProviderLoginError(showLoggedInfo);
-  
-  const  signInHandler = async() => {
+
+  const signInHandler = async () => {
     onLoading(true);
     setShowLoggedInfo(true);
     try {
-      await signIn(providerName , { callbackUrl : `${locale}/onboarding`})
-    } catch (error) {
-      console.log(error); 
-    }
-    onLoading(false)
-  }
+      await signIn(providerName, { callbackUrl: `/${locale}/onboarding` });
+    } catch (err) {}
+    onLoading(false);
+  };
+
   return (
-      <Button onClick={signInHandler} {...props} variant={'secondary'} type='button'>
-        {children}
-      </Button>
-  )
+    <Button
+      onClick={signInHandler}
+      {...props}
+      variant={"secondary"}
+      type="button"
+    >
+      {children}
+    </Button>
+  );
 }
 
 export default ProviderSignInButton
