@@ -24,18 +24,31 @@ export const authOptions: NextAuthOptions = {
         clientSecret : process.env.GOOGLE_CLIENT_SECRET!,
         async profile(profile){
             const username = generateFromEmail(profile.email,5);
+            const fullName = profile.name.split(" ");
             return {
-                id : profile.sub,
-                username,
-                firstName : profile.given_name ? profile.given_name : profile.name,
+                id : profile.id,
+                username : profile.login ? profile.login : username,
+                firstName : fullName.at(0),
+                lastName :  fullName.at(1),
                 email : profile.email,
-                image : profile.picture
+                image : profile.avatar_url
             } 
         }
     }),
     GithubProvider({
         clientId : process.env.GITHUB_CLIENT_ID!,
         clientSecret : process.env.GITHUB_CLIENT_SECRET!,
+        async profile(profile){
+            const username = generateFromEmail(profile.email,5);
+            return {
+                id : profile.sub,
+                username,
+                firstName : profile.given_name ? profile.given_name : profile.name,
+                lastName : profile.family_name ? profile.family_name : "",
+                email : profile.email,
+                image : profile.picture
+            } 
+        }
     }),
     CredentialsProvider({
         name : "credentials",
